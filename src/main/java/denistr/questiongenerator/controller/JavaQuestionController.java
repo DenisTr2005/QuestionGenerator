@@ -21,15 +21,15 @@ public class JavaQuestionController {
     @GetMapping("/add")
     public Question addQuestion(@RequestParam("question") String question,
                                 @RequestParam("answer") String answer) {
-        return null;
+        return service.add(question,answer);
     }
     @GetMapping
     public Collection<Question> getQuestions() {
-        return null;
+        return service.getAll();
     }
     @GetMapping("/remove")
     public Question removeQuestion(@RequestParam("question") String question,
                                 @RequestParam("answer") String answer) {
-        return null;
+        return service.remove(new Question(question,answer));
     }
 }

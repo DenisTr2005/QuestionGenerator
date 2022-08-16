@@ -2,11 +2,10 @@ package denistr.questiongenerator.service;
 
 import denistr.questiongenerator.data.Question;
 import denistr.questiongenerator.exception.QuestionIsAlreadyAddedException;
+import denistr.questiongenerator.exception.QuestionNotFindException;
 import org.springframework.stereotype.Service;
 
-import java.util.Collection;
-import java.util.Random;
-import java.util.Set;
+import java.util.*;
 
 @Service
 public class JavaQuestionService implements QuestionService {
@@ -28,23 +27,26 @@ public class JavaQuestionService implements QuestionService {
     }
 
     @Override
-    public Question add(Question question) {
-        return null;
+    public Question add(Question question) throws QuestionIsAlreadyAddedException {
+        if (questions.add(question)) {
+            return question;
+        }
+        throw new QuestionIsAlreadyAddedException();
     }
-
     @Override
-    public Question remove(Question question) {
-        return null;
+    public Question remove(Question question) throws QuestionNotFindException {
+        if (questions.remove(question)) {
+            return question;
+        }
+        throw new QuestionNotFindException();
     }
-
     @Override
     public Collection<Question> getAll() {
-        return null;
+        return Collections.unmodifiableSet(questions);
     }
-
     @Override
     public Question getRandomQuestion() {
-        random.nextInt(questions.size());
-        return null;
+        int size = questions.size();
+        return questions.toArray(new Question[size])[random.nextInt(size)];
     }
 }
