@@ -1,6 +1,7 @@
 package denistr.questiongenerator.service;
 
 import denistr.questiongenerator.data.Question;
+import denistr.questiongenerator.exception.NoQuestionsInServiceException;
 import denistr.questiongenerator.exception.QuestionIsAlreadyAddedException;
 import denistr.questiongenerator.exception.QuestionNotFindException;
 import org.springframework.stereotype.Service;
@@ -9,13 +10,8 @@ import java.util.*;
 
 @Service
 public class JavaQuestionService implements QuestionService {
-    private final Set<Question> questions;
-    private final Random random;
-
-    public JavaQuestionService(Set<Question> questions) {
-        this.questions = questions;
-        random = new Random();
-    }
+    private final Set<Question> questions = new HashSet<>();
+    private final Random random = new Random();
 
     @Override
     public Question add(String question, String answer) throws QuestionIsAlreadyAddedException {
@@ -47,6 +43,9 @@ public class JavaQuestionService implements QuestionService {
     @Override
     public Question getRandomQuestion() {
         int size = questions.size();
+        if (size == 0) {
+            throw new NoQuestionsInServiceException();
+        }
         return questions.toArray(new Question[size])[random.nextInt(size)];
     }
 }
