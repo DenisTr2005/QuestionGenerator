@@ -1,0 +1,17 @@
+
+GET http://localhost:8080/exam/java/add?question="Что?"&answer="Экзамен"
+###2
+GET http://localhost:8080/exam/java/add?question="Где?"&answer="Здесь"
+###3
+GET http://localhost:8080/exam/java/add?question="Когда?"&answer="Сейчас"
+###4
+GET http://localhost:8080/exam/java/add?question="Кто?"&answer="Пыхто"
+
+###5
+GET http://localhost:8080/exam/java/remove?question="Кто?"&answer="Пыхто"
+
+###6
+GET http://localhost:8080/exam/java
+
+###7
+GET http://localhost:8080/exam/get/1
